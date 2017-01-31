@@ -2,6 +2,9 @@
 # we ask for the :lti provider.
 require 'ims/lti'
 
+# This is from the docs in https://github.com/instructure/ims-lti
+require 'oauth/request_proxy/action_controller_request'
+
 module OmniAuth
   module Strategies
     class Lti
