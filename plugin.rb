@@ -22,8 +22,8 @@ LTI_PROVIDER_AUTHENTICATE_URL = 'https://courses.edx.org/courses/course-v1:MITx+
 
 
 # Register Discourse AuthProvider
-require 'strategy'
-require 'authenticator'
+require_relative 'strategy.rb'
+require_relative 'authenticator.rb'
 auth_provider title: 'LTI',
   message: 'Log in via LTI',
   authenticator: LTIAuthenticator.new,
