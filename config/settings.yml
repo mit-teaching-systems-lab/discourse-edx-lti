@@ -5,3 +5,5 @@ plugins:
   lti_consumer_secret:
     default: 'bar'
     client: false
+  lti_provider_authenticate_url:
+    default: 'https://courses.edx.org/courses/course-v1:MITx+11.154x+1T2017/courseware/ec10139ed74d4e5788bda20a27cabf7c/2fc0e729eede4b88a31e9adafb63b576/'

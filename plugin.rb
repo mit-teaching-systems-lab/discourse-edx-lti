@@ -4,19 +4,19 @@
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
 
-# Plugins need to explicitly include all dependencies, and the loading
-# mechanism is different than bundlers.
-# See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
-# or https://meta.discourse.org/t/plugin-installation-issue-with-omniauth-ldap/30090/4
+# Plugins need to explicitly include dependencies, and the loading
+# mechanism is different than bundler's.
+#
+# See: https://meta.discourse.org/t/plugin-installation-issue-with-omniauth-ldap/30090/4
+# Relevant Discourse source: https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
 gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
-# builder, oauth
 gem 'omniauth-lti', '0.0.2'
-
 
 
 # enable these site settings
 enabled_site_setting :lti_consumer_key
 enabled_site_setting :lti_consumer_secret
+enabled_site_setting :lti_provider_authenticate_url
 
 class LTIAuthenticator < ::Auth::Authenticator  
   def name
@@ -61,7 +61,11 @@ end
 
 auth_provider title: 'LTI',
   message: 'Log in via LTI',
-  authenticator: LTIAuthenticator.new
+  authenticator: LTIAuthenticator.new,
+  custom_url: SiteSetting.lti_provider_authenticate_url
+
+
+
 
 
 # have to point back to the EdX URL
@@ -69,3 +73,12 @@ auth_provider title: 'LTI',
 # and unclear on the mental model of LTI and the model of OmniAuth and Discourse
 # Authenticator plugins
 # not sure about mixin, initializer either.
+
+# alternately:
+# - do site settings work?
+# - add a route for handling LTI
+# - set the appropriate user and session data for Discourse
+# - add guard to redirect everything else to edx, except for admin login
+
+
+# set customUrl to edX

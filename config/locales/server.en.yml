@@ -2,3 +2,4 @@ en:
   site_settings:
     lti_consumer_key: "LTI consumer key"
     lti_consumer_secret: "LTI consumer secret"
+    lti_provider_authenticate_url: 'LTI provider URL (eg., EdX course page with link)'
