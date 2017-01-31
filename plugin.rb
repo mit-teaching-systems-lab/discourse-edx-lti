@@ -3,7 +3,7 @@
 # version: 0.0.1
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
-gem 'omniauth-lti', '0.0.2-SANPSHOT'
+gem 'omniauth-lti', '0.0.2'
 
 
 # enable these site settings
