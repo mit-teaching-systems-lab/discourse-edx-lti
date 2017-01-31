@@ -62,7 +62,7 @@ end
 auth_provider title: 'LTI',
   message: 'Log in via LTI',
   authenticator: LTIAuthenticator.new,
-  custom_url: SiteSetting.lti_provider_authenticate_url
+  custom_url: 'https://courses.edx.org/courses/course-v1:MITx+11.154x+1T2017/courseware/ec10139ed74d4e5788bda20a27cabf7c/2fc0e729eede4b88a31e9adafb63b576/' || SiteSetting.lti_provider_authenticate_url
 
 
 
