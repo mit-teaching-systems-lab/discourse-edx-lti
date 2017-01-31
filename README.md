@@ -17,13 +17,16 @@ Discourse plugin supporting LTI with EdX courses
 - Plugin is here: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
 - Add plugin like this: https://meta.discourse.org/t/install-a-plugin/19157
 - Rebuild container
-- Test!
+- Test!  You should see a 'Login with EdX' button on the Login page
 
 ## EdX setup
 - `Advanced settings` -> `Advanced Module List` -> add "lti" and "lti_consumer"
 - Pick an id for the Forums, generate a consumer key and secret, and add those to `LTI Passports`
 - In Studio, add an LTI consumer and make sure to set "Request users' username" and "Request user's email" to true
 
+## Discourse plugin setup
+- Admin -> Plugins -> discourse-omniauth-lti
+- Set the LTI consumer key and secret, and the EdX course URL
 
 
 ## Work left to do
