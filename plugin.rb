@@ -1,13 +1,13 @@
 # ---------------------------------------------------------------
 # name:  discourse-omniauth-lti
-# about: Discourse as an LTI Provider
+# about: Discourse plugin to authenticate with LTI (eg., for an EdX course)
 # version: 0.0.1
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
 # ---------------------------------------------------------------
 
 
-# Plugins need to explicitly include dependencies, and the loading
+# Plugins need to explicitly include their dependencies, and the loading
 # mechanism is different than with bundler.
 # See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
 gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
@@ -31,8 +31,7 @@ auth_provider title: 'Click to login with EdX',
 
 
 
-# Discourse ships with zocial http://zocial.smcllns.com/sample.html
-# In our case we don't have an icon for GitLab.
+# This styles the login button
 register_css <<CSS
 .btn-social.lti {
   height: 38px;

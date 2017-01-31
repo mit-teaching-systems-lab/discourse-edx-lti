@@ -5,16 +5,16 @@ class LTIAuthenticator < ::Auth::Authenticator
   end
 
   def register_middleware(omniauth)
-    Rails.logger.info 'KR: register_middleware'
+    log :info, 'register_middleware'
     omniauth.provider :lti
   end
 
   def after_authenticate(auth_token)
-    Rails.logger.info 'KR: after_authenticate'
-    Rails.logger.info "KR: after_authenticate, auth_token: #{auth_token.inspect}"
+    log :info, 'after_authenticate'
+    log :info, "after_authenticate, auth_token: #{auth_token.inspect}"
     result = Auth::Result.new
 
-    # Grap the info we need from OmniAuth
+    # Grab the info we need from OmniAuth
     omniauth_params = auth_token[:info]
     result.username = omniauth_params[:edx_username]
     result.email = omniauth_params[:email]
@@ -33,13 +33,19 @@ class LTIAuthenticator < ::Auth::Authenticator
   end
 
   def after_create_account(user, auth)
-    Rails.logger.info 'KR: after_create_account'
-    Rails.logger.info "KR: after_create_account, auth: #{auth.inspect}"
-    Rails.logger.info "KR: after_create_account, user: #{user.inspect}"
-    
+    log :info, 'after_create_account'
+    log :info, "after_create_account, auth: #{auth.inspect}"
+    log :info, "after_create_account, user: #{user.inspect}"
+
     lti_uid = auth[:extra_data][:lti_ud]
     email = auth[:extra_data][:email]
     ::PluginStore.set('lti', "lti_uid_#{lti_uid}", { email: email })
     true
-  end   
+  end 
+
+
+  protected
+  def log(method_symbol, text)
+    Rails.logger.send(method_symbol, "LTIAuthenticator: #{text}")
+  end  
 end
