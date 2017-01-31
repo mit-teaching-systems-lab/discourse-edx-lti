@@ -3,8 +3,11 @@
 # version: 0.0.1
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
-gem 'omniauth-lti', '0.0.2'
+
+# See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
+gem 'omniauth'
 gem 'ims-lti'
+gem 'omniauth-lti', '0.0.2'
 
 
 # enable these site settings
