@@ -5,9 +5,7 @@ module OmniAuth
     class Lti
       include OmniAuth::Strategy
 
-      # Credentials for connecting with LTI provider.
-      option :consumer_key, 'foo_consumer_key'
-      option :consumer_secret, 'foo_consumer_secret'
+      # For storing session
       option :rails_session_key, 'omniauth_lti_provider_rails_session_key'
       
       # These are the params that the LTI Tool Provider receives
@@ -52,27 +50,41 @@ module OmniAuth
       end
 
       # Creates and LTI provider and validates the request, returning
-      # an IMS LTI ToolProvider.
-      #
-      # Raising ActionController::BadRequest if it fails.
+      # an IMS LTI ToolProvider.  Raises ActionController::BadRequest if it fails.
       def create_valid_lti_provider!(request)
         if request.request_method != 'POST'
+          log :info, "Request method unsupported: #{request.request_method}"
           raise ActionController::BadRequest.new('Unsupported method')
         end
 
-        log :info, "Checking LTI params for consumer_key #{options.consumer_key}: #{request.params}"
-        consumer_key = request.params['oauth_consumer_key']
-        if consumer_key != options.consumer_key
+        # Check that consumer key is what we expect
+        credentials = read_credentials()
+        request_consumer_key = request.params['oauth_consumer_key']
+        log :info, "Checking LTI params for consumer_key #{credentials[:consumer_key]}: #{request.params}"
+        if request_consumer_key != credentials[:consumer_key]
+          log :info, 'Invalid consumer key'
           raise ActionController::BadRequest.new('Invalid request')
         end
 
-        lti_provider = IMS::LTI::ToolProvider.new(options.consumer_key, options.consumer_secret, request.params)
-
+        # Create provider and validate request
+        lti_provider = IMS::LTI::ToolProvider.new(credentials[:consumer_key], credentials[:consumer_secret], request.params)
         if not lti_provider.valid_request?(request)
+          log :info, 'lti_provider.valid_request? failed'
           raise ActionController::BadRequest.new('Invalid LTI request')
         end
 
         lti_provider
+      end
+
+      # This uses Discourse's SiteSetting for configuration, which can be changed
+      # through the admin UI.  Using OmniAuth's nice declarative syntax for credential options
+      # means those values need to be passed in at app startup time, and changes in the admin
+      # UI don't have an effect until restarting the server.
+      def read_credentials
+        {
+          consumer_key: SiteSetting.lti_consumer_key,
+          consumer_secret: SiteSetting.lti_consumer_secret
+        }
       end
     end
   end

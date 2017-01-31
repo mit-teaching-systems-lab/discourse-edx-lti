@@ -6,10 +6,7 @@ class LTIAuthenticator < ::Auth::Authenticator
 
   def register_middleware(omniauth)
     Rails.logger.info 'KR: register_middleware'
-    omniauth.provider(:lti, {
-      consumer_key: SiteSetting.lti_consumer_key,
-      consumer_secret: SiteSetting.lti_consumer_secret
-    })
+    omniauth.provider :lti
   end
 
   def after_authenticate(auth_token)

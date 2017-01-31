@@ -27,7 +27,7 @@ require_relative 'authenticator.rb'
 auth_provider title: 'LTI',
   message: 'Log in via LTI',
   authenticator: LTIAuthenticator.new,
-  full_screen_url: true,
+  full_screen_login: true,
   custom_url: LTI_PROVIDER_AUTHENTICATE_URL
 
 
