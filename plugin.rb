@@ -6,6 +6,10 @@
 gem 'omniauth-lti', '0.0.2-SANPSHOT'
 
 
+# enable these site settings
+enabled_site_setting :lti_consumer_key
+enabled_site_setting :lti_consumer_secret
+
 class LTIAuthenticator < ::Auth::Authenticator  
   def name
     'lti'
@@ -13,7 +17,7 @@ class LTIAuthenticator < ::Auth::Authenticator
 
   def register_middleware(omniauth)
     oauth_credentials = {
-      SiteSetting.LTI_CONSUMER_KEY => SiteSetting.LTI_CONSUMER_SECRET
+      SiteSetting.lti_consumer_key => SiteSetting.lti_consumer_secret
     }
     omniauth.provider :lti, { :oauth_credentials => oauth_credentials }
   end

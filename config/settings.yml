@@ -1,0 +1,7 @@
+plugins:
+  lti_consumer_key:
+    default: 'foo'
+    client: false
+  lti_consumer_secret:
+    default: 'bar'
+    client: false
