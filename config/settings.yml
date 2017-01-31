@@ -5,5 +5,3 @@ plugins:
   lti_consumer_secret:
     default: 'bar'
     client: false
-  lti_provider_authenticate_url:
-    default: 'foo'
