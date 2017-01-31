@@ -18,6 +18,7 @@ class LTIAuthenticator < ::Auth::Authenticator
   end
 
   def register_middleware(omniauth)
+    Rails.logger.info 'KR: register_middleware'
     oauth_credentials = {
       SiteSetting.lti_consumer_key => SiteSetting.lti_consumer_secret
     }
@@ -25,6 +26,7 @@ class LTIAuthenticator < ::Auth::Authenticator
   end
 
   def after_authenticate(auth_token)
+    Rails.logger.info 'KR: after_authenticate'
     result = Auth::Result.new
 
     # Grap the info we need from OmniAuth
@@ -46,6 +48,7 @@ class LTIAuthenticator < ::Auth::Authenticator
   end
 
   def after_create_account(user, auth)
+    Rails.logger.info 'KR: after_create_account'
     lti_uid = auth[:extra_data]['lti_uid']
     email = auth[:extra_data]['email']
     ::PluginStore.set('lti', "lti_uid_#{lti_uid}", { email: email })
@@ -56,25 +59,19 @@ end
 auth_provider title: 'LTI',
   message: 'Log in via LTI',
   authenticator: LTIAuthenticator.new,
-  custom_url: 'https://courses.edx.org/courses/course-v1:MITx+11.154x+1T2017/courseware/ec10139ed74d4e5788bda20a27cabf7c/2fc0e729eede4b88a31e9adafb63b576/' || SiteSetting.lti_provider_authenticate_url
+  custom_url: 'https://courses.edx.org/courses/course-v1:MITx+11.155x+1T2017/courseware/f26377b4dba34b75ad4e9183361bdcc8/469a0a53e0cd45a1ae3541d7cc5a1d6a/' || SiteSetting.lti_provider_authenticate_url
 
 
 
 
 
-# have to point back to the EdX URL
-# also unclear if we need to add an endpoint to accept this
-# and unclear on the mental model of LTI and the model of OmniAuth and Discourse
-# Authenticator plugins
-# not sure about mixin, initializer either.
-
-# alternately...
-# - do site settings work?
-# - add a route for handling LTI
-# - set the appropriate user and session data for Discourse
-# - add guard to redirect everything else to edx, except for admin login
-
-# set customUrl to edX
+# work left
+# - site settings? YES
+# - redirect from login to EdX?
+# - handle LTI post from EdX?
+# - set the appropriate user and session data for Discourse?
+# - add guard to redirect everything else to edx, except for admin login?
+# - config for EdX url, etc?
 
 
 # Plugins need to explicitly include dependencies, and the loading

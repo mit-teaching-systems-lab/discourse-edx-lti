@@ -18,3 +18,8 @@ Discourse plugin supporting LTI with EdX courses
 - Add plugin like this: https://meta.discourse.org/t/install-a-plugin/19157
 - Rebuild container
 - Test!
+
+## EdX setup
+- `Advanced settings` -> `Advanced Module List` -> add "lti" and "lti_consumer"
+- Pick an id for the Forums, generate a consumer key and secret, and add those to `LTI Passports`
+- In Studio, add an LTI consumer and make sure to set "Request users' username" and "Request user's email" to true

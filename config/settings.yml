@@ -6,4 +6,4 @@ plugins:
     default: 'bar'
     client: false
   lti_provider_authenticate_url:
-    default: 'https://courses.edx.org/courses/course-v1:MITx+11.154x+1T2017/info'
+    default: 'foo'
