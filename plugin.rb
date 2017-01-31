@@ -4,6 +4,7 @@
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
 gem 'omniauth-lti', '0.0.2'
+gem 'ims-lti'
 
 
 # enable these site settings
