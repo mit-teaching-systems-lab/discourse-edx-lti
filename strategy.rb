@@ -3,7 +3,7 @@
 require 'ims/lti'
 
 # This is from the docs in https://github.com/instructure/ims-lti
-require 'oauth/request_proxy/action_controller_request'
+require 'oauth/request_proxy/rack_request'
 
 module OmniAuth
   module Strategies
@@ -18,11 +18,11 @@ module OmniAuth
       uid { @lti_provider.user_id }
       info do
         {
-          :name => @lti_provider.username,
-          :email => @lti_provider.lis_person_contact_email_primary,
-          :first_name => @lti_provider.lis_person_name_given,
-          :last_name => @lti_provider.lis_person_name_family,
-          :image => @lti_provider.user_image
+          edx_username: @lti_provider.lis_person_sourcedid,
+          email: @lti_provider.lis_person_contact_email_primary,
+          roles: @lti_provider.roles,
+          resource_link_id: @lti_provider.resource_link_id,
+          context_id: @lti_provider.context_id
         }
       end
       extra do
@@ -32,9 +32,11 @@ module OmniAuth
       def callback_phase
         # Rescue more generic OAuth errors and scenarios
         begin
-          log :info, 'callback_phase'
+          log :info, 'callback_phase: start'
           @lti_provider = create_valid_lti_provider!(request)
           session[options.rails_session_key] = @lti_provider.to_params
+
+          log :info, 'callback_phase: set session var'
           super
         rescue ::ActionController::BadRequest
           return [400, {}, ['400 Bad Request']]
