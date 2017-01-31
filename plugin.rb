@@ -44,45 +44,14 @@ register_css <<CSS
   background-size: 32px;
   background-repeat: no-repeat;
   background-position-x: 10px;
-  
-  
-
-  # alt
-  # height: 38px;
-  # color: white;
-  # background-color: rgb(183, 38, 103);
-  # background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADMCAMAAAAI/LzAAAABMlBMV…IgCIIgCIIgCIIgCIIgCIIgCIIgCIIgCIIgCIIgCILMwv8B6CeYfkL4AW0AAAAASUVORK5CYII=);
-  # background-size: 32px;
-  # background-repeat: no-repeat;
-  # background-position-x: 10px;
-  # border: 3px solid rgb(183, 38, 103);
-  # font-size: 1.143em;
-  # padding-left: 55px;
-  # text-align: left;
-  # padding-right: 20px;
-
-
-  # blue:
-  # height: 38px;
-  # color: rgb(183,38,103);
-  # background-color: rgba(0, 117, 180, 0.12);
-  # background-image: url(https://www.edx.org/sites/default/files/theme/edx-logo-header.png);
-  # background-size: 32px;
-  # background-repeat: no-repeat;
-  # background-position-x: 10px;
-  # border: 1px solid #0075b4;
-  # font-size: 1.143em;
-  # padding-left: 55px;
-  # text-align: left;
-  # padding-right: 20px;
-  # background-position-y: 10px;
 }
 CSS
+
 
 # work left
 # - site settings? YES
 # - redirect from login to EdX?
-# - handle LTI post from EdX?
-# - set the appropriate user and session data for Discourse?
+# - handle LTI post from EdX? YES
+# - set the appropriate user and session data for Discourse? YES
 # - add guard to redirect everything else to edx, except for admin login?
-# - config for EdX url, etc?
+# - factor out config for EdX url, etc?
