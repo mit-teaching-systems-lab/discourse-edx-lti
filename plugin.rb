@@ -24,10 +24,13 @@ LTI_PROVIDER_AUTHENTICATE_URL = 'https://courses.edx.org/courses/course-v1:MITx+
 # Register Discourse AuthProvider
 require_relative 'strategy.rb'
 require_relative 'authenticator.rb'
-auth_provider title: 'Click to login with EdX',
+auth_provider({
+  title: 'Login with EdX',
+  message: 'Click to login with EdX',
   authenticator: LTIAuthenticator.new,
   full_screen_login: true,
   custom_url: LTI_PROVIDER_AUTHENTICATE_URL
+})
 
 
 
