@@ -1,5 +1,7 @@
 # OmniAuth strategy.  By adding it in this namespace, OmniAuth will load it when
 # we ask for the :lti provider.
+require 'ims/lti'
+
 module OmniAuth
   module Strategies
     class Lti
