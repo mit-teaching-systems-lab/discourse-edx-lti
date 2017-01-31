@@ -5,3 +5,6 @@ plugins:
   lti_consumer_secret:
     default: 'bar'
     client: false
+  lti_consumer_authenticate_url:
+    default: 'https://edx.org/foo'
+    client: true
