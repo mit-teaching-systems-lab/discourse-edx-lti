@@ -27,7 +27,7 @@ enabled_site_setting :lti_consumer_authenticate_url
 # value into the auth_provider at boot time, we'd need to restart the server to pick
 # up the new value.
 REDIRECT_TO_CONSUMER_ROUTE = '/lti/redirect_to_consumer'
-Rails.application.routes.draw do 
+Discourse::Application.routes.append do
   get REDIRECT_TO_CONSUMER_ROUTE => 'lti#redirect_to_consumer'
 end
 
