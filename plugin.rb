@@ -18,7 +18,7 @@ gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
 # registry time.
 enabled_site_setting :lti_consumer_key
 enabled_site_setting :lti_consumer_secret
-LTI_PROVIDER_AUTHENTICATE_URL = 'https://courses.edx.org/courses/course-v1:MITx+11.155x+1T2017/courseware/f26377b4dba34b75ad4e9183361bdcc8/469a0a53e0cd45a1ae3541d7cc5a1d6a/'
+enabled_site_setting :lti_consumer_authenticate_url
 
 
 # Add an endpoint that will redirect to the EdX URL
