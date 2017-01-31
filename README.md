@@ -23,3 +23,13 @@ Discourse plugin supporting LTI with EdX courses
 - `Advanced settings` -> `Advanced Module List` -> add "lti" and "lti_consumer"
 - Pick an id for the Forums, generate a consumer key and secret, and add those to `LTI Passports`
 - In Studio, add an LTI consumer and make sure to set "Request users' username" and "Request user's email" to true
+
+
+
+## Work left to do
+- site settings? YES
+- redirect from login to EdX?
+- handle LTI post from EdX? YES
+- set the appropriate user and session data for Discourse? YES
+- add guard to redirect everything else to edx, except for admin login?
+- factor out config for EdX url, etc?
