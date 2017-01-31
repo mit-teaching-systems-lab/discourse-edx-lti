@@ -5,7 +5,8 @@
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
 
 # See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
-gem 'ims-lti', '2.1.0.beta.4'
+gem 'ims-lti', '1.1.13'
+# builder, oauth
 gem 'omniauth-lti', '0.0.2'
 
 
