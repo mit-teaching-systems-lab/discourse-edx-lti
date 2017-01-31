@@ -4,8 +4,11 @@
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
 
+# Plugins need to explicitly include all dependencies, and the loading
+# mechanism is different than bundlers.
 # See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
-gem 'ims-lti', '1.1.13'
+# or https://meta.discourse.org/t/plugin-installation-issue-with-omniauth-ldap/30090/4
+gem 'ims-lti', '1.1.13', require: false
 # builder, oauth
 gem 'omniauth-lti', '0.0.2'
 
