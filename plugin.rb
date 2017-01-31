@@ -8,9 +8,10 @@
 # mechanism is different than bundlers.
 # See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
 # or https://meta.discourse.org/t/plugin-installation-issue-with-omniauth-ldap/30090/4
-gem 'ims-lti', '1.1.13', require: false
+gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
 # builder, oauth
 gem 'omniauth-lti', '0.0.2'
+
 
 
 # enable these site settings
