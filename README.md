@@ -5,19 +5,19 @@ It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  Th
 
 ## User experience
 #### 1. Learner signs into EdX
-![login](docs/3-edx-signin.png)
+![login](docs/edx-signin.png)
 
 #### 2. Within EdX course, learner launches Discourse with LTI
-![login](docs/5-edx-lti-launch.png)
+![login](docs/edx-lti-launch.png)
 
 #### 3. The learner is authenticated with their EdX username
-![login](docs/6-signedin-forum.png)
+![login](docs/signedin-forum.png)
 
-#### 4. Alternately, from the Discourse home page
-![login](docs/1-home.png)
+#### 4. The Discourse instance is private
+![login](docs/home.png)
 
-#### 5. Login button bounces back to EdX course
-![login](docs/2-login-dialog.png)
+#### 5. Login button links back to EdX course or allows admin login
+![login](docs/login-dialog.png)
 
 
 ## Initial setup for new course forums
