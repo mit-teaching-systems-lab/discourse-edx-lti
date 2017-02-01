@@ -1,22 +1,22 @@
-# discourse-omniauth-lti
+# discourse-edx-lti
 This is a [Discourse](http://www.discourse.org/) plugin for using Discourse as a discussion forum in EdX courses.
 
 It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  This allows one-click navigation from an EdX course into the discussion forum.  The login dialog also allows users to bounce back to the course, and Discourse admin users can sign in directly.
 
 ## User experience
-#### Home page
-![login](docs/1-home.png)
-
-#### Learner signs into EdX
+#### 1. Learner signs into EdX
 ![login](docs/3-edx-signin.png)
 
-#### Within EdX course, learner launches Discourse with LTI
+#### 2. Within EdX course, learner launches Discourse with LTI
 ![login](docs/5-edx-lti-launch.png)
 
-#### The learner is authenticated with their EdX username
+#### 3. The learner is authenticated with their EdX username
 ![login](docs/6-signedin-forum.png)
 
-#### In Discourse, Login button bounces back to EdX course
+#### 4. Alternately, from the Discourse home page
+![login](docs/1-home.png)
+
+#### 5. Login button bounces back to EdX course
 ![login](docs/2-login-dialog.png)
 
 
@@ -50,7 +50,7 @@ It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  Th
 
 ##### Discourse plugin setup
 - Pick an id for the forum site, generate a consumer key and secret
-- In Discourse, visit `Admin` -> `Plugins` -> `discourse-omniauth-lti`
+- In Discourse, visit `Admin` -> `Plugins` -> `discourse-edx-lti`
 - Set the LTI consumer key and secret, and the EdX course URL
 
 ##### EdX course setup
@@ -71,9 +71,9 @@ You can develop with Vagrant ([see Discourse docs](https://github.com/discourse/
 Example:
 ```
 rm -rf tmp/cache && \
-rm -rf ./plugins/discourse-omniauth-lti/ && \
+rm -rf ./plugins/discourse-edx-lti/ && \
 rsync -av --exclude .git \
-  ~/github/mit-teaching-systems-lab/discourse-omniauth-lti \
+  ~/github/mit-teaching-systems-lab/discourse-edx-lti \
   ./plugins/ && \
 vagrant ssh -c 'cd /vagrant && bundle exec rails s -b 0.0.0.0'
 ```

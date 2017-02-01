@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------
-# name:  discourse-omniauth-lti
+# name:  discourse-edx-lti
 # about: Discourse plugin to authenticate with LTI (eg., for an EdX course)
 # version: 0.0.1
 # author: MIT Teaching Systems Lab
-# url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
+# url: https://github.com/mit-teaching-systems-lab/discourse-edx-lti
 # required_version: 1.8.0.beta4
 # ---------------------------------------------------------------
 
@@ -66,7 +66,7 @@ CSS
 # boot time, so we give it our new endpoint, and it will read the EdX URL from
 # `SiteSetting` and redirect to that EdX course.
 after_initialize do
-  PLUGIN_NAME = 'discourse-omniauth-lti'.freeze
+  PLUGIN_NAME = 'discourse-edx-lti'.freeze
   # It uses an Engine since just drawing the route led to problems with loading the
   # controller class.  This method was drawn from the discourse-poll plugin.
   module ::DiscourseOmniauthLti
