@@ -21,8 +21,8 @@ enabled_site_setting :lti_consumer_authenticate_url
 
 
 # Register Discourse AuthProvider
-require_relative 'strategy.rb'
-require_relative 'authenticator.rb'
+require_relative 'lti_strategy.rb'
+require_relative 'lti_authenticator.rb'
 auth_provider({
   title: 'Click to login with EdX',
   message: 'Click to login with EdX',
