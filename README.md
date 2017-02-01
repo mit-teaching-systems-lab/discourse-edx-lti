@@ -36,3 +36,11 @@ Discourse plugin supporting LTI with EdX courses
 - set the appropriate user and session data for Discourse? YES
 - add guard to redirect everything else to edx, except for admin login?
 - factor out config for EdX url, etc?
+
+## Local development
+In Vagrant:
+
+```
+cd ~/github/discourse/discourse
+rsync -av ~/github/mit-teaching-systems-lab/discourse-omniauth-lti ./plugins/ --exclude .git &&  vagrant ssh -c 'cd /vagrant && bundle exec rails s -b 0.0.0.0'
+```

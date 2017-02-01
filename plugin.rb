@@ -21,11 +21,16 @@ enabled_site_setting :lti_consumer_secret
 enabled_site_setting :lti_consumer_authenticate_url
 
 
-# Add an endpoint that will redirect to the EdX URL
-# This is a separate endpoint so that we can respond to changes in a `SiteSetting`
+# Add an endpoint that will redirect to the EdX URL.
+#
+# This uses a separate endpoint so that we can respond to changes in a `SiteSetting`
 # as soon as an admin user changes them in the UI.  If we passed in the `custom_url`
 # value into the auth_provider at boot time, we'd need to restart the server to pick
 # up the new value.
+#
+# The plugin controller doesn't load on its own, so we have to register an autoload
+# manually here.
+autoload :LtiController, "#{Rails.root}/plugins/discourse-omniauth-lti/app/controllers/lti_controller.rb"
 REDIRECT_TO_CONSUMER_ROUTE = '/lti/redirect_to_consumer'
 Discourse::Application.routes.append do
   get REDIRECT_TO_CONSUMER_ROUTE => 'lti#redirect_to_consumer'
