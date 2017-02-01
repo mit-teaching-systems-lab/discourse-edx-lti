@@ -39,6 +39,8 @@ after_initialize do
   require_dependency 'application_controller'
   class ::DiscourseOmniauthLti::LtiController < ::ApplicationController
     requires_plugin PLUGIN_NAME
+
+    # Adapted from Discourse's StaticController#enter
     skip_before_filter :check_xhr, :redirect_to_login_if_required, :verify_authenticity_token
 
     def redirect_to_consumer
