@@ -39,10 +39,11 @@ This is a [Discourse](http://www.discourse.org/) plugin for authenticating with 
 
 
 ## Local development
-You can develop with Vagrant.  As you develop, copy this repository to the `plugins` folder and restart Rails to see changes.
+You can develop with Vagrant.  As you develop, copy this repository to the `plugins` folder and restart Rails to see changes.  This also clears the cache of compiled ERB templates (see below).
 
 Example:
 ```
-cd ~/github/discourse/discourse
-rsync -av ~/github/mit-teaching-systems-lab/discourse-omniauth-lti ./plugins/ --exclude .git &&  vagrant ssh -c 'cd /vagrant && bundle exec rails s -b 0.0.0.0'
+rm -rf tmp/cache && rm -rf ./plugins/discourse-omniauth-lti/ && rsync -av --delete /Users/krob/github/mit-teaching-systems-lab/discourse-omniauth-lti ./plugins/ --exclude .git &&  vagrant ssh -c 'cd /vagrant && bundle exec rails s -b 0.0.0.0'
 ```
+
+The `plugin-third-party.js.erb` file is what ultimately injects the JavaScript needed to show the new login button in the UI.  In development mode, this file will be cached and won't updated if you are rebuilding the plugin on each change.  You can touch it manually, or see https://meta.discourse.org/t/tmp-cache-needs-to-be-manually-cleared-when-developing-plugins/17109/7 or https://github.com/sstephenson/sprockets/issues/563 for other alternatives.
