@@ -49,13 +49,9 @@ class LTIAuthenticator < ::Auth::Authenticator
     
     # This isn't needed for authentication, it just tracks the unique EdX user ids
     # in a way we could look them up from the EdX username if we needed to.
-    # We only do this once.
     plugin_store_key = "lti_username_#{auth_result.username}"
-    user_info = ::PluginStore.get('lti', plugin_store_key)
-    if not user_info
-      log :info, "after_authenticate, PluginStore.set for auth_result: #{auth_result.inspect}"
-      ::PluginStore.set('lti', plugin_store_key, auth_result.as_json)
-    end
+    ::PluginStore.set('lti', plugin_store_key, auth_result.as_json)
+    log :info, "after_authenticate, PluginStore.set for auth_result: #{auth_result.as_json}"
 
     auth_result
   end
