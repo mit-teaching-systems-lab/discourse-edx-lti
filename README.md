@@ -14,12 +14,21 @@ This is a [Discourse](http://www.discourse.org/) plugin for authenticating with 
 - Rebuild container
 - Test!
 
-
 ## Install and setup this plugin
 - Install this repository as a Discourse plugin ([instructions](https://meta.discourse.org/t/install-a-plugin/19157))
 - Rebuild container
 - Test!
 - (You should see a 'Login with EdX' button on the Login page, but it won't work yet)
+
+##### Discourse login setup
+- The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.
+- Admin users sign into Discourse directly.
+- In the Discourse Admin UI, set:
+  - `invite only`: true
+  - `login required`: true
+  - `must approve users`: false (default)
+  - `enable local logins`: true (default)
+  - `allow new registrations`: true (default)
 
 ##### Discourse plugin setup
 - Pick an id for the forum site, generate a consumer key and secret
