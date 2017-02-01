@@ -4,44 +4,44 @@ This is a [Discourse](http://www.discourse.org/) plugin for authenticating with 
 ![login](docs/login.png)
 
 ## Initial setup for new course forums
-- Sign up for MailGun account
-- Add DNS Record for email (eg., in AWS Route 53)
-- Follow the 30-minute Digital Ocean install process
-- Add DNS Record for server instance
+- Follow [Install Discourse in under 30 minutes](https://blog.discourse.org/2014/04/install-discourse-in-under-30-minutes/) (or deploy on your own setup)
+- Setup [MailGun](https://www.mailgun.com/) or another email provider
+- Add DNS records for email and for your new Discourse instance
 - Test!
 
 ## Add SSL
-- Setup SSL with Let's Encrypt: https://meta.discourse.org/t/setting-up-lets-encrypt/40709
+- Setup SSL with Let's Encrypt ([instructions](https://meta.discourse.org/t/setting-up-lets-encrypt/40709))
 - Rebuild container
 - Test!
 
-## Setup LTI with this plugin
-- Plugin is here: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
-- Add plugin like this: https://meta.discourse.org/t/install-a-plugin/19157
+
+## Install and setup this plugin
+- Install this repository as a Discourse plugin ([instructions](https://meta.discourse.org/t/install-a-plugin/19157))
 - Rebuild container
-- Test!  You should see a 'Login with EdX' button on the Login page
+- Test!
+- (You should see a 'Login with EdX' button on the Login page, but it won't work yet)
 
-## EdX setup
-- `Advanced settings` -> `Advanced Module List` -> add "lti" and "lti_consumer"
-- Pick an id for the Forums, generate a consumer key and secret, and add those to `LTI Passports`
-- In Studio, add an LTI consumer and make sure to set "Request users' username" and "Request user's email" to true
-
-## Discourse plugin setup
-- Admin -> Plugins -> discourse-omniauth-lti
+##### Discourse plugin setup
+- Pick an id for the forum site, generate a consumer key and secret
+- In Discourse, visit `Admin` -> `Plugins` -> `discourse-omniauth-lti`
 - Set the LTI consumer key and secret, and the EdX course URL
 
+##### EdX course setup
+- In EdX Studio, visit `Advanced settings`
+- Add "lti" and "lti_consumer" to `Advanced Module List`
+- Add the forum site's id, consumer key and consumer secret to `LTI Passports`
+- In Studio, to link to the forum site add an LTI consumer that links to `/auth/lti/callback` on the forum site, and make sure to set "Request users' username" and "Request user's email" to `true`
 
-## Work left to do
-- site settings? YES
-- redirect from login to EdX?
-- handle LTI post from EdX? YES
-- set the appropriate user and session data for Discourse? YES
-- add guard to redirect everything else to edx, except for admin login?
-- factor out config for EdX url, etc?
+## Set up your Discourse forums
+- Close the forums unless you want coursework to be public
+- Invite any other admin users
+- Whatever else you like!
+
 
 ## Local development
-In Vagrant:
+You can develop with Vagrant.  As you develop, copy this repository to the `plugins` folder and restart Rails to see changes.
 
+Example:
 ```
 cd ~/github/discourse/discourse
 rsync -av ~/github/mit-teaching-systems-lab/discourse-omniauth-lti ./plugins/ --exclude .git &&  vagrant ssh -c 'cd /vagrant && bundle exec rails s -b 0.0.0.0'
