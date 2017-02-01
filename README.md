@@ -1,5 +1,7 @@
 # discourse-omniauth-lti
-Discourse plugin supporting LTI with EdX courses
+This is a [Discourse](http://www.discourse.org/) plugin for authenticating with LTI for EdX courses.  This allows one-click navigation from an EdX course into the discussion forum.  The login dialog helps learners bounce back to the course, and supports admin users logging in directly.
+
+![login](docs/login.png)
 
 ## Initial setup for new course forums
 - Sign up for MailGun account

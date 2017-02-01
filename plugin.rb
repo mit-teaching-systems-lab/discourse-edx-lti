@@ -77,7 +77,9 @@ after_initialize do
   })
 
 
-  # This styles the login button
+  # This styles the login button, and overrides #login-form to
+  # adds a little more separation between the EdX login button and
+  # the the normal login form below (which is only for admin users).
   register_css <<CSS
 
   .btn-social.lti {
@@ -91,5 +93,9 @@ after_initialize do
     background-position-x: 10px;
   }
 
+  #login-form {
+      border-top: 2px solid #eee;
+      padding-top: 40px;
+  }
 CSS
 end
