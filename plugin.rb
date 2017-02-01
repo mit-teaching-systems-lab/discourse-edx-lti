@@ -47,12 +47,6 @@ after_initialize do
       url = SiteSetting.lti_consumer_authenticate_url
       puts "LtiController: redirecting to #{url}..."
       redirect_to url
-      # Rails.logger :error, "LtiController: redirecting to #{url}..."
-      
-
-      # fdsfdsf.sdf.dsf.dsf.dsf.ds.fds
-      # url = SiteSetting.lti_consumer_authenticate_url
-      # Rails.logger :error, "LtiController: redirecting to #{url}..."
     end
   end
 
