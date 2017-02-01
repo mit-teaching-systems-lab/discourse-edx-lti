@@ -59,13 +59,12 @@ CSS
 # after Rails initializes, since it's adding a controller that subclasses
 # `ApplicationController`.
 #
-# The way Discourse
-# AuthProviders typically work, the authentication URL is fixed.  Since we want to
-# let admin users use the Discourse Admin UI to set the URL for a particular EdX
-# course, we don't know the redirect URL at plugin boot time.  The AuthProvider
-# interface only supports passing in the redirect URL at boot time, so we give it
-# our new endpoint, and it will read the EdX URL from `SiteSetting` and redirect
-# to that EdX course.
+# The way Discourse AuthProviders typically work, the authentication URL is
+# fixed.  Since we want to let admin users use the Discourse Admin UI to set the 
+# URL for a particular EdX course, we don't know the redirect URL at plugin boot
+# time.  The AuthProvider interface only supports passing in the redirect URL at
+# boot time, so we give it our new endpoint, and it will read the EdX URL from
+# `SiteSetting` and redirect to that EdX course.
 after_initialize do
   PLUGIN_NAME = 'discourse-omniauth-lti'.freeze
   # It uses an Engine since just drawing the route led to problems with loading the
