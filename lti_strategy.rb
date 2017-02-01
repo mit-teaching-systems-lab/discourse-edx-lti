@@ -10,9 +10,6 @@ module OmniAuth
     class Lti
       include OmniAuth::Strategy
 
-      # For storing session
-      option :rails_session_key, 'omniauth_lti_provider_rails_session_key'
-      
       # These are the params that the LTI Tool Provider receives
       # in the LTI handoff.  The values here are set in `callback_phase`.
       uid { @lti_provider.user_id }
@@ -34,9 +31,6 @@ module OmniAuth
         begin
           log :info, 'callback_phase: start'
           @lti_provider = create_valid_lti_provider!(request)
-          session[options.rails_session_key] = @lti_provider.to_params
-
-          log :info, 'callback_phase: set session var'
           super
         rescue ::ActionController::BadRequest
           return [400, {}, ['400 Bad Request']]
