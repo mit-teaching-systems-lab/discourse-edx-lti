@@ -20,24 +20,25 @@ It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  Th
 ![login](docs/login-dialog.png)
 
 
-## Initial setup for new course forums
+## Setup
+#### Initial setup for new course forums
 - Follow [Install Discourse in under 30 minutes](https://blog.discourse.org/2014/04/install-discourse-in-under-30-minutes/) (or deploy on your own setup)
 - Setup [MailGun](https://www.mailgun.com/) or another email provider
 - Add DNS records for email and for your new Discourse instance
 - Test!
 
-## Add SSL
+#### Add SSL
 - Setup SSL with Let's Encrypt ([instructions](https://meta.discourse.org/t/setting-up-lets-encrypt/40709))
 - Rebuild container
 - Test!
 
-## Install and setup this plugin
+#### Install and setup this plugin
 - Install this repository as a Discourse plugin ([instructions](https://meta.discourse.org/t/install-a-plugin/19157))
 - Rebuild container
 - Test!
 - (You should see a 'Login with EdX' button on the Login page, but it won't work yet)
 
-##### Discourse login setup
+###### Discourse login setup
 - The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.
 - Admin users sign into Discourse directly.
 - In the Discourse Admin UI, set:
@@ -48,21 +49,21 @@ It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  Th
   - `allow new registrations`: true (default)
   - `email editable`: false
 
-##### Discourse plugin setup
+###### Discourse plugin setup
 - Pick an id for the forum site, generate a consumer key and secret
 - In Discourse, visit `Admin` -> `Plugins` -> `discourse-edx-lti`
 - Set the LTI consumer key and secret, and the EdX course URL
 
-##### EdX course setup
+###### EdX course setup
 - In EdX Studio, visit `Advanced settings`
 - Add "lti" and "lti_consumer" to `Advanced Module List`
 - Add the forum site's id, consumer key and consumer secret to `LTI Passports`
 - In Studio, to link to the forum site add an LTI consumer that links to `/auth/lti/callback` on the forum site, and make sure to set "Request users' username" and "Request user's email" to `true`
 
-## Set up your Discourse forums
+#### Configure your Discourse forums
 - Close the forums unless you want coursework to be public
 - Invite any other admin users
-- Whatever else you like!
+- [Configure](https://github.com/discourse/discourse/blob/master/docs/ADMIN-QUICK-START-GUIDE.md) whatever else you like or add some [plugins](https://meta.discourse.org/c/plugin)!
 
 
 ## Local development
