@@ -1,7 +1,24 @@
 # discourse-omniauth-lti
-This is a [Discourse](http://www.discourse.org/) plugin for authenticating with LTI for EdX courses.  This allows one-click navigation from an EdX course into the discussion forum.  The login dialog helps learners bounce back to the course, and supports admin users logging in directly.
+This is a [Discourse](http://www.discourse.org/) plugin for using Discourse as a discussion forum in EdX courses.
 
-![login](docs/login.png)
+It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  This allows one-click navigation from an EdX course into the discussion forum.  The login dialog also allows users to bounce back to the course, and Discourse admin users can sign in directly.
+
+## User experience
+#### Home page
+![login](docs/1-home.png)
+
+#### Learner signs into EdX
+![login](docs/3-edx-signin.png)
+
+#### Within EdX course, learner launches Discourse with LTI
+![login](docs/5-edx-lti-launch.png)
+
+#### The learner is authenticated with their EdX username
+![login](docs/6-signedin-forum.png)
+
+#### In Discourse, Login button bounces back to EdX course
+![login](docs/2-login-dialog.png)
+
 
 ## Initial setup for new course forums
 - Follow [Install Discourse in under 30 minutes](https://blog.discourse.org/2014/04/install-discourse-in-under-30-minutes/) (or deploy on your own setup)
@@ -29,6 +46,7 @@ This is a [Discourse](http://www.discourse.org/) plugin for authenticating with 
   - `must approve users`: false (default)
   - `enable local logins`: true (default)
   - `allow new registrations`: true (default)
+  - `email editable`: false
 
 ##### Discourse plugin setup
 - Pick an id for the forum site, generate a consumer key and secret
