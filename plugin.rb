@@ -4,25 +4,72 @@
 # version: 0.0.1
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-omniauth-lti
+# required_version: 1.8.0.beta4
 # ---------------------------------------------------------------
 
-PLUGIN_NAME = 'discourse-omniauth-lti'.freeze
+# Plugins need to explicitly include their dependencies, and the loading
+# mechanism is different than with bundler.
+# See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
+gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
+
+
+# Enable site settings in admin UI.
+# See descriptions in files in the `config` folder.
+enabled_site_setting :lti_consumer_key
+enabled_site_setting :lti_consumer_secret
+enabled_site_setting :lti_consumer_authenticate_url
+
+
+# Register Discourse AuthProvider
+require_relative 'strategy.rb'
+require_relative 'authenticator.rb'
+auth_provider({
+  title: 'Click to login with EdX',
+  message: 'Click to login with EdX',
+  authenticator: LTIAuthenticator.new,
+  full_screen_login: true,
+  custom_url: '/lti/redirect_to_consumer'
+})
+
+
+# This styles the login button, and overrides #login-form to
+# adds a little more separation between the EdX login button and
+# the the normal login form below (which is only for admin users).
+register_css <<CSS
+
+.btn-social.lti {
+  height: 38px;
+  font-size: 16px;
+  text-align: left;
+  color: white;
+  background-color: rgb(183, 38, 103);
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position-x: 10px;
+}
+
+#login-form {
+    border-top: 2px solid #eee;
+    padding-top: 40px;
+}
+CSS
+
+
+# This adds an endpoint that will redirect to the EdX URL.  This code is executed
+# after Rails initializes, since it's adding a controller that subclasses
+# `ApplicationController`.
+#
+# The way Discourse
+# AuthProviders typically work, the authentication URL is fixed.  Since we want to
+# let admin users use the Discourse Admin UI to set the URL for a particular EdX
+# course, we don't know the redirect URL at plugin boot time.  The AuthProvider
+# interface only supports passing in the redirect URL at boot time, so we give it
+# our new endpoint, and it will read the EdX URL from `SiteSetting` and redirect
+# to that EdX course.
 after_initialize do
-  # Plugins need to explicitly include their dependencies, and the loading
-  # mechanism is different than with bundler.
-  # See https://github.com/discourse/discourse/blob/master/lib/plugin_gem.rb
-  gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
-
-
-  # Add an endpoint that will redirect to the EdX URL.
-  #
-  # This uses a separate endpoint so that we can respond to changes in a `SiteSetting`
-  # as soon as an admin user changes them in the UI.  If we passed in the `custom_url`
-  # value into the auth_provider at boot time, we'd need to restart the server to pick
-  # up the new value.
-  #
+  PLUGIN_NAME = 'discourse-omniauth-lti'.freeze
   # It uses an Engine since just drawing the route led to problems with loading the
-  # controller class.
+  # controller class.  This method was drawn from the discourse-poll plugin.
   module ::DiscourseOmniauthLti
     class Engine < ::Rails::Engine
       engine_name PLUGIN_NAME
@@ -45,51 +92,7 @@ after_initialize do
 
     def redirect_to_consumer
       url = SiteSetting.lti_consumer_authenticate_url
-      puts "LtiController: redirecting to #{url}..."
       redirect_to url
     end
   end
-
-
-  # Enable site settings in admin UI.
-  # We can't put the EdX URL in SiteSetting since it needs to be available at plugin
-  # registry time.
-  enabled_site_setting :lti_consumer_key
-  enabled_site_setting :lti_consumer_secret
-  enabled_site_setting :lti_consumer_authenticate_url
-
-
-  # Register Discourse AuthProvider
-  require_relative 'strategy.rb'
-  require_relative 'authenticator.rb'
-  auth_provider({
-    title: 'Click to login with EdX',
-    message: 'Click to login with EdX',
-    authenticator: LTIAuthenticator.new,
-    full_screen_login: true,
-    custom_url: '/lti/redirect_to_consumer'
-  })
-
-
-  # This styles the login button, and overrides #login-form to
-  # adds a little more separation between the EdX login button and
-  # the the normal login form below (which is only for admin users).
-  register_css <<CSS
-
-  .btn-social.lti {
-    height: 38px;
-    font-size: 16px;
-    text-align: left;
-    color: white;
-    background-color: rgb(183, 38, 103);
-    background-size: 32px;
-    background-repeat: no-repeat;
-    background-position-x: 10px;
-  }
-
-  #login-form {
-      border-top: 2px solid #eee;
-      padding-top: 40px;
-  }
-CSS
 end
