@@ -25,13 +25,16 @@ class LTIAuthenticator < ::Auth::Authenticator
     lti_uid = auth_token[:uid]
     result.extra_data = omniauth_params.merge(lti_uid: lti_uid)
     
+    log :info, "after_authenticate, result: #{result.inspect}"
     # Check if the user is an existing account and add them to the PluginStore if not
     # This isn't needed for authentication, just tracking which EdX users
     # have ever logged in.
     user_info = ::PluginStore.get('lti', "lti_uid_#{lti_uid}")
+    log :info, "after_authenticate, user_info: #{user_info.inspect}"
     unless user_info
       ::PluginStore.set('lti', "lti_uid_#{lti_uid}", { email: result.email })
     end
+
     result
   end
 
