@@ -69,21 +69,21 @@ after_initialize do
   PLUGIN_NAME = 'discourse-edx-lti'.freeze
   # It uses an Engine since just drawing the route led to problems with loading the
   # controller class.  This method was drawn from the discourse-poll plugin.
-  module ::DiscourseOmniauthLti
+  module ::DiscourseEdxLti
     class Engine < ::Rails::Engine
       engine_name PLUGIN_NAME
-      isolate_namespace DiscourseOmniauthLti
+      isolate_namespace DiscourseEdxLti
     end
   end
-  DiscourseOmniauthLti::Engine.routes.draw do
+  DiscourseEdxLti::Engine.routes.draw do
     get '/redirect_to_consumer' => 'lti#redirect_to_consumer'
   end
   Discourse::Application.routes.append do
-    mount ::DiscourseOmniauthLti::Engine, at: '/lti'
+    mount ::DiscourseEdxLti::Engine, at: '/lti'
   end
 
   require_dependency 'application_controller'
-  class ::DiscourseOmniauthLti::LtiController < ::ApplicationController
+  class ::DiscourseEdxLti::LtiController < ::ApplicationController
     requires_plugin PLUGIN_NAME
 
     # Adapted from Discourse's StaticController#enter
