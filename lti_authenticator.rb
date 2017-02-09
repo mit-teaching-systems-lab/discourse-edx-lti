@@ -53,11 +53,29 @@ class LTIAuthenticator < ::Auth::Authenticator
     ::PluginStore.set('lti', plugin_store_key, auth_result.as_json)
     log :info, "after_authenticate, PluginStore.set for auth_result: #{auth_result.as_json}"
 
+    # Make sure we redirect to the page the course author set in EdX studio.
+    # 
+    # Typical OmniAuth strategies expect all URLs to redirect to a login
+    # page, and then thread the origin URL through the OAuth process as the
+    # origin query param.  It then redirects there after successful authentication.
+    #
+    # LTI expects to be able to post to a single URL, and pass params about
+    # where to navigate to afterward.  If we passed the origin query param, this
+    # would work with OmniAuth and Discourse, but the EdX Studio UI requires
+    # query string params to be properly escaped, which is a barrier for course
+    # authors.  So we work around by having authors set
+    # `["url=https://foo.com/whatever"]` in EdX studio, and then set that up as the
+    # the OmniAuth origin here.
+    #
+    # Since the request is LTI-signed, this is secure, but discourse will
+    # parse it and discard the domain to be safe too.
+    @env['omniauth.origin'] = auth_token[:origin_url]
+    log :info, "after_authenticate, omniauth.origin set to #{@env['omniauth.origin']}"
     auth_result
   end
 
   protected
   def log(method_symbol, text)
     Rails.logger.send(method_symbol, "LTIAuthenticator: #{text}")
-  end  
+  end
 end
