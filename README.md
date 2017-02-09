@@ -3,7 +3,7 @@ This is a [Discourse](http://www.discourse.org/) plugin for using Discourse as a
 
 It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  This allows one-click navigation from an EdX course into the discussion forum.  The login dialog also allows users to bounce back to the course, and Discourse admin users can sign in directly.
 
-## User experience
+## Learner user experience
 #### 1. Learner signs into EdX
 ![login](docs/edx-signin.png)
 
@@ -18,6 +18,20 @@ It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  Th
 
 #### 5. Login button links back to EdX course or allows admin login
 ![login](docs/login-dialog.png)
+
+
+## Course author user experience
+#### 1. In Studio's Advanced Settings, enable LTI and add LTI passport (see [EdX docs](http://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/lti_component.html))
+![login](docs/lti-setup.png)
+
+#### 2. Add a new LTI widget
+![login](docs/lti-component.png)
+
+#### 3. Set the LTI URL to `/auth/lti/callback` always
+![login](docs/lti-url.png)
+
+#### 4. Set the LTI Custom Parameters to include `["url=/page-to-link-to"]`
+![login](docs/custom-params.png)
 
 
 ## Setup
