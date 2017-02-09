@@ -19,8 +19,7 @@ module OmniAuth
           email: @lti_provider.lis_person_contact_email_primary,
           roles: @lti_provider.roles,
           resource_link_id: @lti_provider.resource_link_id,
-          context_id: @lti_provider.context_id,
-          origin_url: @lti_provider.custom_url # In EdX, this is the 'url' custom parameter
+          context_id: @lti_provider.context_id
         }
       end
       extra do
@@ -32,6 +31,9 @@ module OmniAuth
         begin
           log :info, 'callback_phase: start'
           @lti_provider = create_valid_lti_provider!(request)
+
+          log :info, "lti_provider.custom_params: #{@lti_provider.custom_params.inspect}"
+          set_origin_url!(@lti_provider.custom_params)
           super
         rescue ::ActionController::BadRequest
           return [400, {}, ['400 Bad Request']]
@@ -48,7 +50,7 @@ module OmniAuth
 
       protected
       def log(method_symbol, text)
-        Rails.logger.send(method_symbol, "LTI: #{text}")
+        Rails.logger.send(method_symbol, "LTIStrategy: #{text}")
       end
 
       # Creates and LTI provider and validates the request, returning
@@ -87,6 +89,35 @@ module OmniAuth
           consumer_key: SiteSetting.lti_consumer_key,
           consumer_secret: SiteSetting.lti_consumer_secret
         }
+      end
+
+      # Respect the "url" custom parameter in EdX and make sure we redirect to it
+      # after authentication.  This allows learners to click an LTI link and jump
+      # directly to a particular page.
+      # 
+      # Typical OmniAuth strategies expect all URLs to redirect to a login
+      # page, and then thread the origin URL through the OAuth process as the
+      # `origin` query param.  LTI expects to be able to post to a single URL, and
+      # pass params about where to navigate to afterward.  If we passed the `origin`
+      # query param, this would work with OmniAuth and Discourse to a certain point,
+      # but the EdX Studio UI requires query string params to be properly escaped,
+      # which is a barrier for course authors.  So we work around by having authors
+      # set `["url=https://foo.com/whatever"]` in EdX studio, and read that here.
+      #
+      # Unfortunately, Discourse checks `omniauth.origin` but overrides whatever it finds
+      # there if a :destination_url cookie is set (see omniauth_callbacks#complete), and
+      # in the LTI path it will be set to the root URL.  So here we set that cookie directly,
+      # which Discourse reads in the controller and redirects to after finishing the
+      # authentication process.
+      #
+      # Since the request is LTI-signed, this is secure, but Discourse will
+      # parse it and discard the domain to be safe.
+      def set_origin_url!(lti_custom_params)
+        origin_url = lti_custom_params['url']
+        return unless origin_url
+
+        log :info, "set_origin_url: #{origin_url}"
+        @env['action_dispatch.cookies'][:destination_url] = origin_url
       end
     end
   end
