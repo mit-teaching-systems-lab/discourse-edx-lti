@@ -19,7 +19,8 @@ module OmniAuth
           email: @lti_provider.lis_person_contact_email_primary,
           roles: @lti_provider.roles,
           resource_link_id: @lti_provider.resource_link_id,
-          context_id: @lti_provider.context_id
+          context_id: @lti_provider.context_id,
+          origin_url: @lti_provider.custom_url # In EdX, this is the 'url' custom parameter
         }
       end
       extra do
