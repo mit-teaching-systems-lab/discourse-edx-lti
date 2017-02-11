@@ -3,6 +3,8 @@ This is a [Discourse](http://www.discourse.org/) plugin for using Discourse as a
 
 It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  This allows one-click navigation from an EdX course into the discussion forum.  The login dialog also allows users to bounce back to the course, and Discourse admin users can sign in directly.
 
+Alternately, you may be interested in a similar project using [WordPress](https://github.com/mit-teaching-systems-lab/wordpress-edx-forums) as a discussion forum for EdX courses.
+
 ## Learner user experience
 #### 1. Learner signs into EdX
 ![login](docs/edx-signin.png)
