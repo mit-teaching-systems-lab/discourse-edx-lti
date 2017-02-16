@@ -38,7 +38,7 @@ class LTIAuthenticator < ::Auth::Authenticator
 
     # Lookup or create a new User record.
     user = User.find_or_initialize_by({
-      email: auth_result.email,
+      email: auth_result.email.downcase,
       username: auth_result.username
     })
     if user.new_record?
