@@ -36,15 +36,23 @@ class LTIAuthenticator < ::Auth::Authenticator
     auth_result.extra_data = omniauth_params.merge(lti_uid: lti_uid)
     log :info, "after_authenticate, auth_result: #{auth_result.inspect}"
 
-    # Lookup or instantiate a User record and set a reference to it.  This is required as part of the
-    # implementation of `omniauth_callback_controller#complete_response_data`.  That method will then
-    # mark the User as active and save it to the database.
-    #
-    # There seems like there should be a better way to do this, but I haven't found it yet.
-    auth_result.user = User.find_or_initialize_by({
+    # Lookup or create a new User record.
+    user = User.find_or_initialize_by({
       email: auth_result.email,
       username: auth_result.username
     })
+    if user.new_record?
+      log :info, "after_authenticate, first-time user, saving..."
+      user.staged = false
+      user.active = true
+      user.password = SecureRandom.hex(32)
+      user.password_required!
+      user.save!
+      user.reload
+    end
+
+    # Return a reference to the User record.
+    auth_result.user = user
     log :info, "after_authenticate, user: #{auth_result.user.inspect}"
     
     # This isn't needed for authentication, it just tracks the unique EdX user ids
