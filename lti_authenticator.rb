@@ -27,11 +27,13 @@ class LTIAuthenticator < ::Auth::Authenticator
     auth_result = Auth::Result.new
 
     # Grab the info we need from OmniAuth
+    # Discourse has a limit of 20 characters for usernames, but EdX does not.
+    DISCOURSE_USERNAME_MAX_LENGTH = 20
     omniauth_params = auth_token[:info]
-    auth_result.username = omniauth_params[:edx_username]
+    auth_result.username = omniauth_params[:edx_username].slice(0, DISCOURSE_USERNAME_MAX_LENGTH)
+    auth_result.name = omniauth_params[:edx_username]
     auth_result.email = omniauth_params[:email]
     auth_result.email_valid = auth_result.email.present?
-    auth_result.name = auth_result.username
     lti_uid = auth_token[:uid]
     auth_result.extra_data = omniauth_params.merge(lti_uid: lti_uid)
     log :info, "after_authenticate, auth_result: #{auth_result.inspect}"
