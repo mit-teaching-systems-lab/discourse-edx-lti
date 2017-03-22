@@ -1,5 +1,7 @@
 # Discourse Authenticator class
 class LTIAuthenticator < ::Auth::Authenticator  
+  DISCOURSE_USERNAME_MAX_LENGTH = 20
+
   # override hook
   def name
     'lti'
@@ -28,7 +30,6 @@ class LTIAuthenticator < ::Auth::Authenticator
 
     # Grab the info we need from OmniAuth
     # Discourse has a limit of 20 characters for usernames, but EdX does not.
-    DISCOURSE_USERNAME_MAX_LENGTH = 20
     omniauth_params = auth_token[:info]
     auth_result.username = omniauth_params[:edx_username].slice(0, DISCOURSE_USERNAME_MAX_LENGTH)
     auth_result.name = omniauth_params[:edx_username]
@@ -48,7 +49,6 @@ class LTIAuthenticator < ::Auth::Authenticator
       user.staged = false
       user.active = true
       user.password = SecureRandom.hex(32)
-      user.password_required!
       user.save!
       user.reload
     end
