@@ -36,6 +36,7 @@ module OmniAuth
           set_origin_url!(@lti_provider.custom_params)
           super
         rescue ::ActionController::BadRequest
+          log :info, "lti_provider.bad_request, params: #{request.params.inspect}"
           return [400, {}, ['400 Bad Request']]
         rescue ::Timeout::Error
           fail!(:timeout)
