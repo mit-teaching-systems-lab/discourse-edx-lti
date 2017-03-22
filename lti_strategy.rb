@@ -39,13 +39,20 @@ module OmniAuth
           log :info, "lti_provider.bad_request, params: #{request.params.inspect}"
           return [400, {}, ['400 Bad Request']]
         rescue ::Timeout::Error
+          log :info, "lti_provider.Timeout::Error, params: #{request.params.inspect}"
           fail!(:timeout)
         rescue ::Net::HTTPFatalError, ::OpenSSL::SSL::SSLError
+          log :info, "lti_provider.Net::HTTPFatalError, params: #{request.params.inspect}"
           fail!(:service_unavailable)
         rescue ::OAuth::Unauthorized
+          log :info, "lti_provider.OAuth::Unauthorized, params: #{request.params.inspect}"
           fail!(:invalid_credentials)
         rescue ::OmniAuth::NoSessionError
+          log :info, "lti_provider.OmniAuth::NoSessionError, params: #{request.params.inspect}"
           fail!(:session_expired)
+        rescue ::ActiveRecord::RecordInvalid
+          log :info, "lti_provider.ActiveRecord::RecordInvalid, params: #{request.params.inspect}"
+          fail!(:record_invalid)
         end
       end
 
