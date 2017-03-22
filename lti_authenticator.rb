@@ -1,7 +1,7 @@
 # Discourse Authenticator class
 class LTIAuthenticator < ::Auth::Authenticator  
   DISCOURSE_USERNAME_MAX_LENGTH = 20
-  
+
   # override hook
   def name
     'lti'
@@ -49,7 +49,6 @@ class LTIAuthenticator < ::Auth::Authenticator
       user.staged = false
       user.active = true
       user.password = SecureRandom.hex(32)
-      user.password_required!
       user.save!
       user.reload
     end
