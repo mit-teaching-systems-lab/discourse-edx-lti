@@ -48,7 +48,6 @@ class LTIAuthenticator < ::Auth::Authenticator
       user.staged = false
       user.active = true
       user.password = SecureRandom.hex(32)
-      user.password_required!
       user.save!
       user.reload
     end
