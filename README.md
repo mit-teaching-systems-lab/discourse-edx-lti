@@ -5,6 +5,9 @@ It adds a Discourse `AuthProvider` that handles LTI authentication from EdX.  Th
 
 Alternately, you may be interested in a similar project using [WordPress](https://github.com/mit-teaching-systems-lab/wordpress-edx-forums) as a discussion forum for EdX courses.
 
+## Where has this been used?
+- MIT: [Design Thinking for Leading and Learning](https://www.edx.org/course/design-thinking-leading-learning-mitx-microsoft-education-11-155x) ([course report](https://tsl.mit.edu/wp-content/uploads/2017/06/DTLL_Review_2017.pdf))
+
 ## Learner user experience
 #### 1. Learner signs into EdX
 ![login](docs/edx-signin.png)
