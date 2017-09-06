@@ -1,10 +1,10 @@
 # ---------------------------------------------------------------
 # name:  discourse-edx-lti
 # about: Discourse plugin to authenticate with LTI (eg., for an EdX course)
-# version: 0.5.2
+# version: 0.6.1
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-edx-lti
-# required_version: 1.8.0.beta4
+# required_version: 1.9.0.beta8
 # ---------------------------------------------------------------
 
 # Plugins need to explicitly include their dependencies, and the loading
