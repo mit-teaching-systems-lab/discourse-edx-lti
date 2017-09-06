@@ -42,13 +42,11 @@ Alternately, you may be interested in a similar project using [WordPress](https:
 ## Setup
 #### Initial setup for new course forums
 - Follow [Install Discourse in under 30 minutes](https://blog.discourse.org/2014/04/install-discourse-in-under-30-minutes/) (or deploy on your own setup)
+- Follow the Discourse instructions to setup SSL with Let's Encrypt ([instructions](https://meta.discourse.org/t/setting-up-lets-encrypt/40709))
 - Setup [MailGun](https://www.mailgun.com/) or another email provider
 - Add DNS records for email and for your new Discourse instance
-- Test!
-
-#### Add SSL
-- Setup SSL with Let's Encrypt ([instructions](https://meta.discourse.org/t/setting-up-lets-encrypt/40709))
-- Rebuild container
+- Wait to setup additional [features](https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md#add-more-discourse-features) until after the plugin and EdX setup is done.
+- When the site is up, set it as "private" login and don't invite any users yet
 - Test!
 
 #### Install and setup this plugin
@@ -60,7 +58,7 @@ Alternately, you may be interested in a similar project using [WordPress](https:
 ###### Discourse login setup
 - The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.
 - Admin users sign into Discourse directly.
-- In the Discourse Admin UI, set:
+- In the Discourse Admin UI, within the `Basic Setup` and `Users` sections, set:
   - `invite only`: true
   - `login required`: true
   - `must approve users`: false (default)
