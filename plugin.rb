@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-edx-lti
 # about: Discourse plugin to authenticate with LTI (eg., for an EdX course)
-# version: 0.6.1
+# version: 0.7.0
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-edx-lti
 # required_version: 1.9.0.beta8
@@ -87,7 +87,7 @@ after_initialize do
     requires_plugin PLUGIN_NAME
 
     # Adapted from Discourse's StaticController#enter
-    skip_before_filter :check_xhr, :redirect_to_login_if_required, :verify_authenticity_token
+    skip_before_action :check_xhr, :redirect_to_login_if_required, :verify_authenticity_token
 
     def redirect_to_consumer
       url = SiteSetting.lti_consumer_authenticate_url
