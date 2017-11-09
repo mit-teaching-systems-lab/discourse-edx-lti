@@ -38,6 +38,9 @@ Alternately, you may be interested in a similar project using [WordPress](https:
 #### 4. Set the LTI Custom Parameters to include `["url=/page-to-link-to"]`
 ![login](docs/custom-params.png)
 
+#### 5. Set the LTI Launch Target to open in a new window
+![login](docs/open-new-window.png)
+
 
 ## Setup
 #### Initial setup for new course forums
