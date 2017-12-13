@@ -36,6 +36,7 @@ Alternately, you may be interested in a similar project using [WordPress](https:
 ![login](docs/lti-url.png)
 
 #### 4. Set the LTI Custom Parameters to include `["url=/page-to-link-to"]`
+Note that this may be handled differently on edX versus an Open edX instance.  See [#22](https://github.com/mit-teaching-systems-lab/discourse-edx-lti/issues/22#issuecomment-350617779 ) for more.
 ![login](docs/custom-params.png)
 
 #### 5. Set the LTI Launch Target to open in a new window
