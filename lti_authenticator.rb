@@ -29,7 +29,8 @@ class LTIAuthenticator < ::Auth::Authenticator
     auth_result = Auth::Result.new
 
     # Grab the info we need from OmniAuth
-    # Discourse has a limit of 20 characters for usernames, but EdX does not.
+    # We also may need to modify the EdX username to conform to Discourse's username
+    # validations.
     omniauth_params = auth_token[:info]
     auth_result.username = build_discourse_username omniauth_params[:edx_username]
     auth_result.name = omniauth_params[:edx_username]
@@ -83,10 +84,18 @@ class LTIAuthenticator < ::Auth::Authenticator
     Rails.logger.send(method_symbol, "LTIAuthenticator: #{text}")
   end
 
-  # Discourse has a limit of 20 characters for usernames, but EdX does not, so we slice it.
-  # Edx username can still be (or become) invalid after the slicing.
-  # E.g. it can end on special symbol(.-_) or contain more than 1 underscore in a row
+  # Take valid EdX usernames that would be invalid Discourse usernames, and transform
+  # them into valid Discourse usernames.
+  # Right now this method just handles the cases we've run into in the wild -
+  # Discourse usernames can't be too long, can't end on special symbol (_) and
+  # can't contain more than 1 underscore in a row.
+  # See https://github.com/discourse/discourse/blob/v1.9.0.beta17/app/models/username_validator.rb#L29 for
+  # full details on Discourse validation.
+  #
+  # This method can lead to collapsing different EdX usernames into the same Discourse
+  # username (eg, kevin__robinson and kevin_robinson), but the authentication methods above
+  # require that email addresses match exactly as well.
   def build_discourse_username(edx_username)
-    edx_username.slice(0, DISCOURSE_USERNAME_MAX_LENGTH).gsub("__","_").chomp("_")
+    edx_username.slice(0, DISCOURSE_USERNAME_MAX_LENGTH).gsub('__','_').chomp('_')
   end
 end
