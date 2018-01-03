@@ -7,6 +7,7 @@ Alternately, you may be interested in a similar project using [WordPress](https:
 
 ## Where has this been used?
 - MIT: [Design Thinking for Leading and Learning](https://www.edx.org/course/design-thinking-leading-learning-mitx-microsoft-education-11-155x) ([course report](https://tsl.mit.edu/wp-content/uploads/2017/06/DTLL_Review_2017.pdf))
+- MIT: [Launching Innovation in Schools](https://courses.edx.org/courses/course-v1:MITx+11.154x+3T2017/course/), also on EdX Edge for a white-labeled small private online course
 
 ## Learner user experience
 #### 1. Learner signs into EdX
