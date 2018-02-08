@@ -49,29 +49,26 @@ Note that this may be handled differently on edX versus an Open edX instance.  S
 - This repository assumes you've already done this.  See [mit-teaching-systems-lab/discourse-for-moocsters](https://github.com/mit-teaching-systems-lab/discourse-for-moocsters) for setup instructions for how we do this in our labs at MIT.
 
 #### Install and setup this plugin
+- The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.  Admin users sign into Discourse directly.
+- This plugin will also set some admin site settings, which you can see in [config/settings.yml](config/settings.yml).  You can edit these in the Discourse Admin UI, but note that the interactions between these settings in different parts of the product are complex, and we don't recommend changing these defaults for a private course.
 - Install this repository as a Discourse plugin ([instructions](https://meta.discourse.org/t/install-a-plugin/19157))
 - Rebuild container
 - Test!  Logout from your admin user, and click the Login button.  You should see a `Login with EdX` button at the top of the Login dialog box (which won't work yet).
 
-###### Discourse login setup
-- The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.  Admin users sign into Discourse directly.
-- This plugin will also set some admin site settings, which you can see in [config/settings.yml](config/settings.yml).  You can edit these in the Discourse Admin UI, but note that the interactions between these settings in different parts of the product are complex, and we don't recommend changing these defaults for a private course.
-
-###### Discourse plugin setup
+#### Discourse plugin setup
 - Pick an id for the forum site, generate a consumer key and secret
 - In Discourse, visit `Admin` -> `Plugins` -> `discourse-edx-lti`
 - Set the LTI consumer key and secret, and the EdX course URL
 
-###### EdX course setup
+#### EdX course setup
 - In EdX Studio, visit `Advanced settings`
 - Add "lti" and "lti_consumer" to `Advanced Module List`
 - Add the forum site's id, consumer key and consumer secret to `LTI Passports`
 - In Studio, to link to the forum site add an LTI consumer that links to `/auth/lti/callback` on the forum site, and make sure to set "Request users' username" and "Request user's email" to `true`
 
 #### Configure your Discourse forums
-- Close the forums unless you want coursework to be public
 - Invite any other admin users
-- [Configure](https://github.com/discourse/discourse/blob/master/docs/ADMIN-QUICK-START-GUIDE.md) whatever else you like or add some [plugins](https://meta.discourse.org/c/plugin)!
+- [Configure](https://github.com/discourse/discourse/blob/master/docs/ADMIN-QUICK-START-GUIDE.md) whatever else you like or add some more [plugins](https://meta.discourse.org/c/plugin) or [features](https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md#add-more-discourse-features)!
 
 
 ## Local development
