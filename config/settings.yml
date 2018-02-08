@@ -18,3 +18,4 @@ login:
 
 users:
   email_editable: false
+  username_change_period: 0
