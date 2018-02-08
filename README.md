@@ -54,15 +54,8 @@ Note that this may be handled differently on edX versus an Open edX instance.  S
 - Test!  Logout from your admin user, and click the Login button.  You should see a `Login with EdX` button at the top of the Login dialog box (which won't work yet).
 
 ###### Discourse login setup
-- The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.
-- Admin users sign into Discourse directly.
-- In the Discourse Admin UI, within the `Basic Setup` and `Users` sections, set:
-  - `invite only`: true
-  - `login required`: true
-  - `must approve users`: false (default)
-  - `enable local logins`: true (default)
-  - `allow new registrations`: true (default)
-  - `email editable`: false
+- The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.  Admin users sign into Discourse directly.
+- This plugin will also set some admin site settings, which you can see in [config/settings.yml](config/settings.yml).  You can edit these in the Discourse Admin UI, but note that the interactions between these settings in different parts of the product are complex, and we don't recommend changing these defaults for a private course.
 
 ###### Discourse plugin setup
 - Pick an id for the forum site, generate a consumer key and secret
