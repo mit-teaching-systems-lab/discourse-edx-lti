@@ -46,19 +46,12 @@ Note that this may be handled differently on edX versus an Open edX instance.  S
 
 ## Setup
 #### Initial setup for new course forums
-- Follow [Install Discourse in under 30 minutes](https://blog.discourse.org/2014/04/install-discourse-in-under-30-minutes/) (or deploy on your own setup)
-- Follow the Discourse instructions to setup SSL with Let's Encrypt ([instructions](https://meta.discourse.org/t/setting-up-lets-encrypt/40709))
-- Setup [MailGun](https://www.mailgun.com/) or another email provider
-- Add DNS records for email and for your new Discourse instance
-- Wait to setup additional [features](https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md#add-more-discourse-features) until after the plugin and EdX setup is done.
-- When the site is up, set it as "private" login and don't invite any users yet
-- Test!
+- This repository assumes you've already done this.  See [mit-teaching-systems-lab/discourse-for-moocsters](https://github.com/mit-teaching-systems-lab/discourse-for-moocsters) for setup instructions for how we do this in our labs at MIT.
 
 #### Install and setup this plugin
 - Install this repository as a Discourse plugin ([instructions](https://meta.discourse.org/t/install-a-plugin/19157))
 - Rebuild container
-- Test!
-- (You should see a 'Login with EdX' button on the Login page, but it won't work yet)
+- Test!  Logout from your admin user, and click the Login button.  You should see a `Login with EdX` button at the top of the Login dialog box (which won't work yet).
 
 ###### Discourse login setup
 - The intent is that the site is private, and learners can only gain access by signing in through EdX and launching the site through LTI.
