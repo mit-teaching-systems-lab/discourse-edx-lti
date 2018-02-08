@@ -8,3 +8,13 @@ plugins:
   lti_consumer_authenticate_url:
     default: 'https://edx.org/foo'
     client: true
+
+login:
+  invite_only: true
+  login_required: true
+  must_approve_users: false
+  enable_local_logins: true
+  allow_new_registrations: true
+
+users:
+  email_editable: false
