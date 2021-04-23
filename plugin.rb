@@ -15,6 +15,7 @@ gem 'ims-lti', '1.1.13', require: false, require_name: 'ims/lti'
 
 # Enable site settings in admin UI.
 # See descriptions in files in the `config` folder.
+enabled_site_setting :lti_consumer_enabled
 enabled_site_setting :lti_consumer_key
 enabled_site_setting :lti_consumer_secret
 enabled_site_setting :lti_consumer_authenticate_url
@@ -25,9 +26,7 @@ require_relative 'lti_strategy.rb'
 require_relative 'lti_authenticator.rb'
 auth_provider({
   title: 'Click to login with EdX',
-  message: 'Click to login with EdX',
   authenticator: LTIAuthenticator.new,
-  full_screen_login: true,
   custom_url: '/lti/redirect_to_consumer'
 })
 

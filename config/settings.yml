@@ -1,4 +1,6 @@
 plugins:
+  lti_consumer_enabled:
+    default: true
   lti_consumer_key:
     default: 'foo'
     client: false

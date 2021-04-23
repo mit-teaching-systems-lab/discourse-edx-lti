@@ -1,5 +1,6 @@
 en:
   site_settings:
+    lti_consumer_enabled: "Enable LTI authentication"
     lti_consumer_key: "LTI consumer key"
     lti_consumer_secret: "LTI consumer secret"
     lti_consumer_authenticate_url: 'EdX authentication URL (eg., course page with link to forums)'
