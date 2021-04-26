@@ -7,6 +7,10 @@ class LTIAuthenticator < ::Auth::Authenticator
     'lti'
   end
 
+  def enabled?
+    SiteSetting.lti_consumer_enabled
+  end
+
   # override hook
   def register_middleware(omniauth)
     log :info, 'register_middleware'
